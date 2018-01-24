@@ -1,0 +1,14 @@
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\SourceScrambler2.exe.config
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\SourceScrambler2.exe
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\SourceScrambler2.pdb
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\MedallionRandom.dll
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\MetroFramework.Design.dll
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\MetroFramework.dll
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\bin\Debug\MedallionRandom.xml
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.Form1.resources
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.Properties.Resources.resources
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.csproj.GenerateResource.Cache
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.exe
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.pdb
+C:\Users\nerre\Desktop\CSGODev\SourceScrambler2\SourceScrambler2\SourceScrambler2\obj\Debug\SourceScrambler2.csprojResolveAssemblyReference.cache
