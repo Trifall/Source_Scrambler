@@ -20,5 +20,22 @@ namespace SourceScrambler2
         internal const MetroFramework.MetroColorStyle TealStyle = MetroFramework.MetroColorStyle.Blue;
         internal const MetroFramework.MetroThemeStyle LightTheme = MetroFramework.MetroThemeStyle.Light;
 
+        internal static double NextDouble(this Random random, double minValue, double maxValue)
+        {
+            return random.NextDouble() * (maxValue - minValue) + minValue;
+        }
+
+        internal static string RandomString(this Random random, int size)
+        {
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+
+            return builder.ToString();
+        }
     }
 }

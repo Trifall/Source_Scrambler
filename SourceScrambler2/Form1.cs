@@ -236,13 +236,15 @@ namespace SourceScrambler2
                         string[] contents = ReadFileLines(@file); // Store all lines in file -> string[] contents
                         List<string> contentsCopy = SwapLines(contents); // contentsCopy becomes a version of 'contents' where the lines are swapped. Takes 'contents' as input to not iterate over itself when swapping lines.  
                         List<string> contentsCopy2 = SwapBlocks(contentsCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
-                                                                              // so that it does not replace what SwapLines does previously.
+                                                                               // so that it does not replace what SwapLines does previously.
+                        List<string> contentsCopy3 = AddJunkLines(contentsCopy2);
+
 
                         // TODO: Find a way to optimize this?
 
                         string MatchingExtension = GetExtension(@file, ExtensionFolders); // Find folder that match for the output directories.
 
-                        WriteToFile(contentsCopy2, MatchingExtension, @pathOut); // Write the contents to the pathOut folder.
+                        WriteToFile(contentsCopy3, MatchingExtension, @pathOut); // Write the contents to the pathOut folder.
 
                         Log("File " + MatchingExtension + " has been scrambled.");
                     }
@@ -261,7 +263,7 @@ namespace SourceScrambler2
                         // Get all lines of the file.
                         string[] contents = ReadFileLines(@file);
                         List<string> contentsCopy = SwapLines(contents);
-                       // List<string> contentsCopy2 = SwapBlocks(contentCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
+                        List<string> contentsCopy2 = SwapBlocks(contentsCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
                                                                               //so that it does not replace what SwapLines does previously.
 
                         string MatchingExtension = GetExtension(@file, ExtensionFolders); // Find folder that match for the output directories.
@@ -286,7 +288,7 @@ namespace SourceScrambler2
                         // Get all lines of the file.
                         string[] contents = ReadFileLines(@file);
                         List<string> contentsCopy = SwapLines(contents);
-                        // List<string> contentsCopy2 = SwapBlocks(contentCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
+                        List<string> contentsCopy2 = SwapBlocks(contentsCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
                                                                               //so that it does not replace what SwapLines does previously.
 
                         string MatchingExtension = GetExtension(@file, ExtensionFolders);
@@ -299,6 +301,37 @@ namespace SourceScrambler2
                 }
             }
 
+        }
+
+        private List<string> AddJunkLines(List<string> contents)
+        {
+            List<string> contentsCopy = new List<string>(contents);
+            Random random = new Random();
+
+            // Check each line in array.
+            for (int i = 0; i < contents.Count; i++)
+            {
+                // Check for swaplines
+                if (contents[i].Contains("[add_junk_block /]"))
+                {
+                    Log("found junk block");
+                    Log("Random Float between 1 and 2: " + Math.Round(random.NextDouble(random.NextDouble(1.11, 23.42), random.NextDouble(23.45, 521.23)), random.Next(3,9)).ToString());
+                    Log("Random String: " + random.RandomString(random.Next(5, 11)));
+
+                    // Make Function Header
+                    contentsCopy.Insert(i + 1, "void " + random.RandomString(random.Next(5, 11)) + random.Next(2222223, 999999898) + "(){");
+
+                    for(int h = 0; h < random.Next(5, 12); h++)
+                    {
+
+                    }
+
+
+                    // TODO: Randomize if statements, finish this.
+                }
+            }
+
+            return contentsCopy;
         }
 
         private List<string> SwapBlocks(List<string> contents)
@@ -400,7 +433,7 @@ namespace SourceScrambler2
                             LineCount++; // Add a counter so we know where to insert the next line. This is to save the position of the previous block.
                         }
                     }
-
+                    
                     LineCount = 1; // Reset linecount for a possible next pass.
 
                     //++ Strategy for swapping blocks: 
