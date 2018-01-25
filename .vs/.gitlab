@@ -1,0 +1,13 @@
+{
+  "User": {
+    "Id": 1752110,
+    "Username": "JerrenT",
+    "Name": "Jerren Trifan",
+    "Email": "nerrej01@gmail.com",
+    "AvatarUrl": "https://secure.gravatar.com/avatar/5bdbc421e4f86d9a698c3f726afc32c3?s=80&d=identicon",
+    "PrivateToken": "b9fe8e4313921bd11f2d17d74f43217dc1e3554b8aead31e50a25d2a65bf642a",
+    "Host": "https://gitlab.com",
+    "TwoFactorEnabled": false,
+    "ApiVersion": 3
+  }
+}

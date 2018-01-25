@@ -5,4 +5,5 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "U2U1100:Compare strings correctly", Justification = "<Pending>", Scope = "member", Target = "~M:SourceScrambler2.Form1.ScrambleFile(System.String[],System.Collections.Generic.List{System.String},System.String,System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "U2U1100:Compare strings correctly", Justification = "<Pending>", Scope = "member", Target = "~M:SourceScrambler2.Form1.SwapBlocks(System.String[])~System.Collections.Generic.List{System.String}")]
 

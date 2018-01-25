@@ -235,12 +235,12 @@ namespace SourceScrambler2
 
                         string[] contents = ReadFileLines(@file); // Store all lines in file -> string[] contents
                         List<string> contentsCopy = SwapLines(contents); // contentsCopy becomes a version of 'contents' where the lines are swapped. Takes 'contents' as input to not iterate over itself when swapping lines.  
-                        // List<string> contentsCopy2 = SwapBlocks(contentCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
+                        List<string> contentsCopy2 = SwapBlocks(contentsCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
                                                                               //so that it does not replace what SwapLines does previously.
 
                         string MatchingExtension = GetExtension(@file, ExtensionFolders); // Find folder that match for the output directories.
 
-                        WriteToFile(contentsCopy, MatchingExtension, @pathOut); // Write the contents to the pathOut folder.
+                        WriteToFile(contentsCopy2, MatchingExtension, @pathOut); // Write the contents to the pathOut folder.
 
                         Log("File " + MatchingExtension + " has been scrambled.");
                     }
@@ -299,7 +299,7 @@ namespace SourceScrambler2
 
         }
 
-        private List<string> SwapBlocks(string[] contents)
+        private List<string> SwapBlocks(List<string> contents)
         {
             // Get all lines of the file.
             List<string> contentsCopy = new List<string>(contents);
@@ -309,14 +309,11 @@ namespace SourceScrambler2
             List<int> startswapblocks = new List<int>();
             List<int> stopswapblocks = new List<int>();
 
-
-            int latestBlockStart = -1;
-            int latestBlockEnd = -1;
             List<int> startblock = new List<int>();
             List<int> endblock = new List<int>();
 
             // Check each line in array.
-            for (int i = 0; i < contents.Length; i++)
+            for (int i = 0; i < contents.Count; i++)
             {
                 // Check for swaplines
                 if (contents[i].Contains("[swap_blocks]"))
@@ -339,40 +336,77 @@ namespace SourceScrambler2
                 // If both points have been found and if they have not already been used. (Markers)
                 if (latestSwapBlocks != -1 && latestStopSwapBlocks != -1 && !startswapblocks.Contains(latestSwapBlocks) && !stopswapblocks.Contains(latestSwapBlocks))
                 {
-                    startswapblocks.Add(latestSwapBlocks);
-                    stopswapblocks.Add(latestStopSwapBlocks);
                     // Check if waiting for next endpoint (presumably after first swap_lines pass)
                     if (latestStopSwapBlocks < latestSwapBlocks)
                         continue;
 
+                    startswapblocks.Add(latestSwapBlocks);
+                    stopswapblocks.Add(latestStopSwapBlocks);
+                    startblock.Clear();
+                    endblock.Clear();
 
-
-                    // Get blocks
-
-
-
-                    //++ Current Strategy: 
-                    //+                          - Copy section of lines between markers into List. (the whole swap_blocks section)
-                    //+                          - Remove section between markers to clear "old" lines from original array
-                    //+                          - Determine markers of Blocks
-                    //+                          - Grab sections of lines between Block statements, after determining block sections
-                    //+                          - Place those lines into a List<List<string>> (list of contents in Block, in a list of Blocks)
-                    //+                          - Randomize the top List to reorder the Blocks
-                    //+                          - Insert Blocks back into file
-
-                    // Get contents to shuffle and shuffle them.
-                    //List<string> swaplines = contents.Skip(latestSwapBlocks + 1).Take(latestStopSwapBlocks - latestSwapBlocks - 1).ToList();
-                    //swaplines.Shuffle();
-
-
-
-
-                    // Remove elements from copy.
+                    // Get swapsection
+                    List<string> SwapSection = contentsCopy.GetRange(latestSwapBlocks + 1, latestStopSwapBlocks - latestSwapBlocks);
+                    // Remove original
                     contentsCopy.RemoveRange(latestSwapBlocks + 1, latestStopSwapBlocks - latestSwapBlocks - 1);
 
-                    // Insert shuffled elements back in to copy.
-                    //foreach (string line in swaplines)
-                        //contentsCopy.Insert(latestSwapBlocks + 1, line);
+                    // Get block markers
+                    for (int l = 0; l < SwapSection.Count; l++)
+                    {
+                        if (SwapSection.ElementAt(l).ToLower().Contains("[block]"))
+                        {
+                            startblock.Add(l);
+                        }
+
+                        if (SwapSection.ElementAt(l).ToLower().Contains("[/block]"))
+                        {
+                            endblock.Add(l);
+                        }
+                    }
+
+
+                    // Initialize lists for future use
+                    List<List<string>> Blocks = new List<List<string>>();
+
+                    // Get block contents and add blocks to 
+                    for(int start = 0; start < startblock.Count; start++)
+                    {
+                        if (startblock.Count <= endblock.Count)               // Fairly certain something in here is wrong
+                        {
+                            List<string> BlockSection = SwapSection.GetRange(startblock.ElementAt(start), (endblock.ElementAt(start) - startblock.ElementAt(start)) + 1);
+                            Blocks.Add(BlockSection);
+                             
+                        }
+                    }
+
+                    // Randomize list of blocks
+                    Blocks.Shuffle();
+                    Blocks.Shuffle();
+                    Blocks.Shuffle();
+
+                    // Insert Blocks back into file.
+
+                    int LineCount = 1;
+                    foreach(List<string> block in Blocks)
+                    {
+                        foreach(string line in block)
+                        {
+                            contentsCopy.Insert(latestSwapBlocks + LineCount, line);
+                            LineCount++;
+                        }
+                    }
+
+                    LineCount = 1;
+
+                    //++ Current Strategy: 
+                    //!+                     done - Copy section of lines between markers into List. (the whole swap_blocks section)
+                    //+                      done - Remove section between markers to clear "old" lines from original array
+                    //+                      done - Determine markers of Blocks
+                    //!+                     done - Grab sections of lines between Block statements, after determining block sections
+                    //+                      done - Place those lines into a List<List<string>> (list of contents in Block, in a list of Blocks)
+                    //+                      done - Randomize the top List to reorder the Blocks
+                    //+                      done - Insert Blocks back into file
+
 
                 }
 
