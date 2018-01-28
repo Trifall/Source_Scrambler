@@ -237,7 +237,7 @@ namespace SourceScrambler2
                         List<string> contentsCopy = SwapLines(contents); // contentsCopy becomes a version of 'contents' where the lines are swapped. Takes 'contents' as input to not iterate over itself when swapping lines.  
                         List<string> contentsCopy2 = SwapBlocks(contentsCopy); // contentsCopy2 becomes a version of 'contentsCopy' where blocks (sections) of lines are swapped in chunks. Takes contentsCopy instead of contents -
                                                                                // so that it does not replace what SwapLines does previously.
-                        List<string> contentsCopy3 = AddJunkLines(contentsCopy2);
+                        List<string> contentsCopy3 = AddJunkBlock(contentsCopy2);
 
 
                         // TODO: Find a way to optimize this?
@@ -303,7 +303,7 @@ namespace SourceScrambler2
 
         }
 
-        private List<string> AddJunkLines(List<string> contents)
+        private List<string> AddJunkBlock(List<string> contents)
         {
             List<string> contentsCopy = new List<string>(contents);
             Random random = new Random();
@@ -314,20 +314,50 @@ namespace SourceScrambler2
                 // Check for swaplines
                 if (contents[i].Contains("[add_junk_block /]"))
                 {
-                    Log("found junk block");
-                    Log("Random Float between 1 and 2: " + Math.Round(random.NextDouble(random.NextDouble(1.11, 23.42), random.NextDouble(23.45, 521.23)), random.Next(3,9)).ToString());
-                    Log("Random String: " + random.RandomString(random.Next(5, 11)));
-
+                    //Log("Random Float between 1 and 2: " + Math.Round(random.NextDouble(random.NextDouble(1.11, 23.42), random.NextDouble(23.45, 521.23)), random.Next(3,9)).ToString());
+                    //Log("Random String: " + random.RandomString(random.Next(5, 11)));
+                    string PreSpace = contents[i].Substring(0, contents[i].IndexOf('/'));
                     // Make Function Header
-                    contentsCopy.Insert(i + 1, "void " + random.RandomString(random.Next(5, 11)) + random.Next(2222223, 999999898) + "(){");
+                    contentsCopy.Insert(i + 1, PreSpace + "void " + random.RandomString(random.Next(5, 11)) + random.Next(2222223, 999999898).ToString() + "(){");
 
-                    for(int h = 0; h < random.Next(5, 12); h++)
+                    int NextLine = -1;
+                    string MainVar = "";
+                    // Create Random Vars
+                    for(int h = 1; h < random.Next(7, 14); h++)
                     {
-
+                        MainVar = random.RandomString(random.Next(5, 11)) + random.Next(2222223, 999999898).ToString();
+                        NextLine = i + h + 1;
+                        contentsCopy.Insert(NextLine, PreSpace + Constants.SingleTab + "float " + MainVar + " = " + random.Next(2222223, 999999898).ToString() + "f;");
+                        
                     }
 
+                    NextLine++;
 
-                    // TODO: Randomize if statements, finish this.
+                    // Randomized change values
+                    for(int p = 0; p < random.Next(14, 18); p++)
+                    {
+                        if((random.Next(10) + 1) > 3)
+                            contentsCopy.Insert(NextLine, PreSpace + Constants.SingleTab + MainVar + " = " + random.Next(2222223, 999999898).ToString() + "f;");
+                        else // 30%* chance for an if statement
+                        {
+                            contentsCopy.Insert(NextLine, PreSpace + Constants.SingleTab + "if (" + MainVar + " == " + random.Next(2222223, 999999898).ToString() + "f)");
+                            NextLine++;
+                            contentsCopy.Insert(NextLine, PreSpace + Constants.SingleTab + Constants.SingleTab + MainVar + " = " + random.Next(2222223, 999999898).ToString() + "f;");
+                            
+                        }
+                        NextLine++;
+                    }
+
+                    // Closing bracket
+                    contentsCopy.Insert(NextLine, PreSpace + "}");
+
+                    // Strategy for Junk Block
+                    /* 1. Create function header. Done
+                            * 2. Create Random vars. Done
+                            * 3. Randomize length of changing values.
+                            * 4. Incorporate if statements for added bytes.
+                    */
+
                 }
             }
 
@@ -392,14 +422,10 @@ namespace SourceScrambler2
                     for (int l = 0; l < SwapSection.Count; l++)
                     {
                         if (SwapSection.ElementAt(l).ToLower().Contains("[block]"))
-                        {
                             startblock.Add(l);
-                        }
 
                         if (SwapSection.ElementAt(l).ToLower().Contains("[/block]"))
-                        {
                             endblock.Add(l);
-                        }
                     }
 
 

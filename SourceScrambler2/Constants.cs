@@ -20,6 +20,9 @@ namespace SourceScrambler2
         internal const MetroFramework.MetroColorStyle TealStyle = MetroFramework.MetroColorStyle.Blue;
         internal const MetroFramework.MetroThemeStyle LightTheme = MetroFramework.MetroThemeStyle.Light;
 
+        internal const string SingleTab = "    ";
+        
+        
         internal static double NextDouble(this Random random, double minValue, double maxValue)
         {
             return random.NextDouble() * (maxValue - minValue) + minValue;
