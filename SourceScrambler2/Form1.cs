@@ -303,6 +303,71 @@ namespace SourceScrambler2
 
         }
 
+
+        private List<string> AddJunkLines(List<string> contents){
+            // Get all lines of the file.
+            List<string> contentsCopy = new List<string>(contents);
+
+            int latestSwapBlocks = -1;
+            int latestStopSwapBlocks = -1; 
+            List<int> startswapblocks = new List<int>();
+            List<int> stopswapblocks = new List<int>();
+
+            // Check each line in array.
+            for (int i = 0; i < contents.Count; i++)
+            {
+                // Check for swaplines
+                if (contents[i].Contains("[add_junk_lines]"))
+                {
+                    if (!startswapblocks.Contains(i))
+                    {
+                        latestSwapBlocks = i;
+
+                    }
+                }
+                // Check for end swaplines
+                if (contents[i].Contains("[/add_junk_lines]"))
+                {
+                    if (!stopswapblocks.Contains(i))
+                    {
+                        latestStopSwapBlocks = i;
+                    }
+                }
+                // If both points have been found and if they have not already been used. (Markers)
+                if (latestSwapBlocks != -1 && latestStopSwapBlocks != -1 && !startswapblocks.Contains(latestSwapBlocks) && !stopswapblocks.Contains(latestSwapBlocks))
+                {
+                    // Check if waiting for next endpoint (presumably after first swap_lines pass)
+                    if (latestStopSwapBlocks < latestSwapBlocks)
+                        continue;
+
+                    // Add the latest swapblocks so we dont reuse the same markers.
+                    startswapblocks.Add(latestSwapBlocks);
+                    stopswapblocks.Add(latestStopSwapBlocks);
+
+                    // Get swapsection
+                    List<string> SwapSection = contentsCopy.GetRange(latestSwapBlocks + 1, latestStopSwapBlocks - latestSwapBlocks);
+                    // Remove original
+                    contentsCopy.RemoveRange(latestSwapBlocks + 1, latestStopSwapBlocks - latestSwapBlocks - 1);
+
+                    int PlaceHolderRandom;
+                    int LineNumber = -1;
+                    for(int y = 0; y < SwapSection.Count; y++){
+                        if(SwapSection[y].Contains(";")){
+                            LineNumber = y;
+                            SwapSection.Insert(LineNumber, PlaceHolderRandom);
+                            y++;
+                        }
+                    }
+
+                }
+
+            }
+            // Return the changed file.
+            return contentsCopy;
+
+        }
+
+
         private List<string> AddJunkBlock(List<string> contents)
         {
             List<string> contentsCopy = new List<string>(contents);

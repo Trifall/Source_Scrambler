@@ -26,3 +26,18 @@ C:\Users\nerre\Desktop\CSGODev\Repos\SourceScrambler\SourceScrambler2\obj\Debug\
 C:\Users\nerre\Desktop\CSGODev\Repos\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.csproj.GenerateResource.Cache
 C:\Users\nerre\Desktop\CSGODev\Repos\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.exe
 C:\Users\nerre\Desktop\CSGODev\Repos\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.pdb
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\SourceScrambler2.exe.config
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\SourceScrambler2.exe
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\SourceScrambler2.pdb
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\MedallionRandom.dll
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\MetroFramework.Design.dll
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\MetroFramework.dll
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\bin\Debug\MedallionRandom.xml
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.csprojResolveAssemblyReference.cache
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.Form1.resources
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.Properties.Resources.resources
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.csproj.GenerateResource.Cache
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.csproj.CoreCompileInputs.cache
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.exe
+C:\Users\Windows 10\Desktop\Source\SourceScrambler\SourceScrambler2\obj\Debug\SourceScrambler2.pdb
