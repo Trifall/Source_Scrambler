@@ -1,5 +1,14 @@
 # Source_Scrambler
-Adds junk and reorders code in order to change the hash of the respective modules.
+Adds junk and reorders code in order to change the hash of the respective modules. Can be used to bypass certain detection methods that rely on those hashes, or can be used to further obfuscate code.
+
+Only operates on the file extensions:
+```
+.cpp
+.h
+.hpp
+```
+
+Note: You may need to adjust your compilers settings to not remove unused variables in these specific files, otherwise they may be optimized out.
 
 <b><h2>Current Tags</h2></b>
 
